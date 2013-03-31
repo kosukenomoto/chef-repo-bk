@@ -1,0 +1,13 @@
+{
+    "run_list":[
+        "userset",
+        "yum::epel",
+        "git",
+        "zsh",
+        "perlbrew",
+        "tmux",
+        "vim"
+
+    ]
+}
+

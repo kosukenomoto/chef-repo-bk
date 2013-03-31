@@ -21,10 +21,15 @@ git "/home/vagrant/.zsh/autojump" do
     group "vagrant"
     action :sync
 end
-execute "autojump compile" do
-    command "cd /home/vagrant/.zsh/autojump;./install.sh"
+bash "autojump compile" do
+    user 'vagrant'
+    group 'vagrant'
+    cwd '/home/vagrant/.zsh/autojump'
+    environment "HOME" => '/home/vagrant'
+    code <<-EOC
+        ./install.sh
+    EOC
     creates "/etc/profile.d/autojump.zsh"
-    action :run
 end
 git "/home/vagrant/.zsh/git-prompt" do
     repository "git://github.com/olivierverdier/zsh-git-prompt.git"
