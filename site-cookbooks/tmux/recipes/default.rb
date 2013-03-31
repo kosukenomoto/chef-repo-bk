@@ -9,3 +9,10 @@
 package "tmux" do
     action :install
 end
+template "/home/vagrant/.tmux.conf" do
+    source "tmux.conf.erb"
+    owner "vagrant"
+    group "vagrant"
+    mode 0644
+end
+

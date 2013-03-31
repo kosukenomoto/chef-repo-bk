@@ -1,0 +1,92 @@
+<% if node[:plathome]=='mac_os_x' -%>
+# git://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+<% end -%>
+
+# Prefix
+# <default C-b Set>
+#unbind C-b
+#set -g prefix C-t
+
+#solusion "nested tmux prefix"
+#bind-key a send-prefix
+
+#solusion "tmux makes delay zsh vimmodechg"
+set -s escape-time 0
+
+#Option
+setw -g mode-keys vi
+set  -g base-index 1
+
+# KeyBind
+bind r source-file ~/.tmux.conf
+
+# Window操作
+unbind n
+bind n new-window
+unbind j
+bind j next-window
+unbind k
+bind k previous-window
+
+# pane
+bind t split-window -h
+# pane操作
+unbind h
+bind h select-pane -t :.+
+unbind l
+bind l select-pane -t :.-
+unbind w
+unbind x
+bind w confirm-before -p "kill-pane #p? (y/n)" kill-pane
+
+#copy&pasteモード切り替え
+unbind c
+bind c copy-mode
+unbind v
+bind v paste-buffer
+<% if node[:plathome]=='mac_os_x' -%>
+bind-key y run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+bind-key p run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+<% end -%>
+ 
+# color設定
+set -g default-terminal "screen-256color"
+
+# status
+#set -g status-fg colour7
+#set -g status-bg colour27
+#set -g status-attr bright 
+ 
+set -g status-left-length 30
+set -g status-left ' ★ #H★   #[default]'
+set -g status-right '[%Y-%m-%d(%a) %H:%M]#[default]'
+
+## COLOUR
+# default statusbar colors
+set -g status-bg colour235 #base02
+set -g status-fg colour136 #yellow
+set -g status-attr default
+
+# default window title colors
+setw -g window-status-fg colour244
+setw -g window-status-bg default
+#setw -g window-status-attr dim
+
+# active window title colors
+setw -g window-status-current-fg colour166 #orange
+setw -g window-status-current-bg default
+#setw -g window-status-current-attr bright
+
+# pane border
+set -g pane-border-fg colour235 #base02
+set -g pane-active-border-fg colour240 #base01
+
+# message text
+set -g message-bg colour235 #base02
+set -g message-fg colour166 #orange
+
+# pane number display
+set -g display-panes-active-colour colour33 #blue
+set -g display-panes-colour colour166 #orange
+
