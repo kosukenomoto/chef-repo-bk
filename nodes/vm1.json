@@ -6,7 +6,8 @@
         "zsh",
         "perlbrew",
         "tmux",
-        "vim"
+        "vim",
+        "man"
 
     ]
 }

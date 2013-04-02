@@ -1,0 +1,7 @@
+{
+    "id" : "knomoto",
+    "username" : "knomoto",
+    "group"    : "knomoto",
+    "home"     : "/home/knomoto",
+    "shell"    : "/bin/zsh"
+}

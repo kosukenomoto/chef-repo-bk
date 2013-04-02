@@ -6,9 +6,31 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-user "knomoto" do
-    comment "kosukenomoto user"
-    shell "/bin/zsh"
-    password nil
-    supports :manage_home => true
+data_ids = data_bag('users')
+data_ids.each do |id|
+    u = data_bag_item('users',id)
+
+    user u['username'] do
+        comment u['username'] +" user"
+        shell u['shell']
+        password u['username']
+        supports :manage_home => true
+    end
+    directory u['home'] + "/.ssh" do
+        owner u['username']
+        group u['username']
+        mode 0755
+    end
+    cookbook_file u['home'] + "/.ssh/authorized_keys" do
+        source "macbook_kn.pub"
+        owner u['username']
+        group u['username']
+        mode 0600
+    end
+    cookbook_file u['home'] + "/startup.md" do
+        source "startup.md"
+        owner u['username']
+        group u['username']
+        mode 0755
+    end
 end
