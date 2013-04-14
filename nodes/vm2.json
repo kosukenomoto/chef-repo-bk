@@ -1,7 +1,7 @@
+#for fedora
 {
     "run_list":[
         "userset",
-        "yum::epel",
         "git",
         "zsh",
         "perlbrew",
@@ -11,6 +11,7 @@
         "man",
         "yum-utils",
         "rpm-build"
+
     ]
 }
 

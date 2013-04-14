@@ -27,6 +27,22 @@ data_ids.each do |id|
         group u['username']
         mode 0600
     end
+    bash "ssh keygen" do
+        user u['username']
+        group u['username']
+        cwd u['home']
+        environment "HOME" => u['home']
+        code <<-EOC
+            ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+        EOC
+        creates u['home'] +"/.ssh/id_rsa.pub"
+    end
+    template u['home'] + "/.ssh/config" do
+        source "ssh_config.erb"
+        owner u['username']
+        group u['username']
+        mode 0644
+    end
     cookbook_file u['home'] + "/startup.md" do
         source "startup.md"
         owner u['username']
