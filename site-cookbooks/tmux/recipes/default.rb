@@ -20,4 +20,22 @@ data_ids.each do |id|
         group u['username']
         mode 0644
     end
+    directory u['home'] + "/.tmux.d" do
+        owner u['username']
+        group u['username']
+        mode 0755
+    end
+    git u['home'] + "/.tmux.d/tmux-powerline" do
+        repository "git://github.com/erikw/tmux-powerline.git"
+        reference "master"
+        user u['username']
+        group u['username']
+        action :sync
+    end
+    template u['home'] + "/.tmux.d/tmux-powerline/themes/default.sh" do
+        source "tmux_powerline_defalt.sh.erb"
+        owner u['username']
+        group u['username']
+        mode 0644
+    end
 end
