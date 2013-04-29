@@ -121,6 +121,8 @@ set list
 set hidden
 "ビープ音ではなくビジュアルベル（画面フラッシュ）を使う
 set vb
+"ステータスラインの常時表示
+set laststatus=2
 
 " Windows
 set splitbelow  " 横分割したら新しいウィンドウは下に
@@ -144,9 +146,8 @@ let g:virtualenv_directory = '~/tests/python/'
 "}}}
 
 " Keymap Base {{{
-nmap <C-j> <ESC>
-xmap <C-j> <ESC>
-imap <C-j> <ESC>
+inoremap <silent> <C-j> <ESC>
+nnoremap <silent> <C-j> <ESC>
 
 "検索時のハイライト解除
 nmap <silent><ESC><ESC> :noh<CR><ESC>
